@@ -62,7 +62,7 @@ object AntennaStreamingJob extends StreamingJob {
           .mode(SaveMode.Append)
           .format("jdbc")
           .option("driver", "org.postgresql.Driver")
-          .option("url", s"jdbc:postgresql://35.232.169.53:5432/postgres")
+          .option("url", "jdbc:postgresql://35.232.169.53:5432/postgres")
           .option("dbtable", "bytes")
           .option("user", "postgres")
           .option("password", "keepcoding")
