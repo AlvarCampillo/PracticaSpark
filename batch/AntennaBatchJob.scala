@@ -62,11 +62,11 @@ object AntennaBatchJob extends BatchJob {
   //Elegir personas que han superado su cuota
   override def computeUserQuotaLimit(dataFrame: DataFrame): DataFrame = {
     dataFrame
-      .filter($"id" when "type" == "user_total_bytes")
+      .filter($"type" === "user_total_bytes")
       .select($"timestamp", $"id", $"name", $"quota", $"email")
       .agg(sum($"bytes").as("sum_bytes"))
       .select($"sum_bytes".as("usage"), $"timestamp", $"email", $"quota")
-      .when("usage".toInt > "quota".toInt)
+      .where($"usage" > $"quota")
   }
 
   override def writeToJdbc(dataFrame: DataFrame, jdbcURI: String, jdbcTable: String, user: String, password: String): Unit = {
